@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kopi Nusantara Risk Company — Deluxe Global Edition</title>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body id="app" class="theme-light">
+  <!-- HEADER -->
+  <header id="siteHeader" class="site-header">
+    <div class="container header-inner">
+      <div class="brand" onclick="scrollToSection('#home')">
+        <img class="logo"
+             src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=140&q=60&auto=format&fit=crop"
+             alt="Logo Kopi Nusantara">
+        <div class="brand-text">
+          <h1>Kopi Nusantara <span class="gold">Risk Company</span></h1>
+          <div class="tag">Curated beans • Nusantara & International</div>
+        </div>
+      </div>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#home">Beranda</a>
+        <a href="#products">Produk</a>
+        <a href="#gallery">Galeri</a>
+        <a href="#events">Event</a>
+        <a href="#articles">Artikel</a>
+        <a href="#team">Tim</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Kontak</a>
+      </nav>
+
+      <div class="header-tools">
+        <button id="searchBtn" class="icon" title="Cari">🔍</button>
+        <button id="wishBtn" class="icon" title="Wishlist">♡ <span id="wishCount">0</span></button>
+        <button id="cartBtn" class="cart-btn" title="Keranjang">🛒 <span id="cartCount">0</span></button>
+        <button id="authBtn" class="icon" title="Login / Register">👤</button>
+        <button id="themeToggle" class="icon" title="Toggle theme">🌙</button>
+      </div>
+    </div>
+
+    <div id="searchBar" class="search-bar hidden container">
+      <input id="searchInput" placeholder="Cari produk, artikel, event..." />
+      <button id="searchClose" class="btn ghost">Tutup</button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <div class="hero-bg"
+         style="background-image:url('https://images.unsplash.com/photo-1498804103079-a6351b050096?w=1600&q=60&auto=format&fit=crop')"></div>
+    <div class="hero-overlay"></div>
+    <div class="container hero-inner">
+      <div class="hero-left">
+        <h2 class="animate-in">Nikmati Cita Rasa Kopi Nusantara & Dunia</h2>
+        <p class="lead animate-in delay-1">Dari kebun Gayo hingga ladang Yirgacheffe — biji terpilih, roasting small-batch, cerita petani di setiap cangkir.</p>
+        <div class="hero-ctas animate-in delay-2">
+          <button class="btn primary" onclick="scrollToSection('#products')">Lihat Produk</button>
+          <button class="btn ghost" onclick="scrollToSection('#events')">Jadwal Event</button>
+        </div>
+
+        <ul class="features animate-in delay-3">
+          <li><strong>Direct trade</strong><span>Kerjasama petani</span></li>
+          <li><strong>Small-batch</strong><span>Profil roasting khusus</span></li>
+          <li><strong>Sustainable</strong><span>Program ramah lingkungan</span></li>
+        </ul>
+      </div>
+      <div class="hero-right animate-in delay-2">
+        <div class="spotlight-card">
+         <img src="foto arabica gayo.jpeg"
+     alt="Kopi Arabica Gayo Aceh">
+
+          <div class="spot-info">
+            <h4>Spotlight — Arabica Gayo</h4>
+            <p class="muted small">Aroma floral • body seimbang • recommended pour-over</p>
+            <div class="price">Rp 120.000 — 200g</div>
+            <div class="spot-cta">
+              <button class="btn primary" onclick="addToCartById('p1',1,true)">Beli</button>
+              <button class="btn" onclick="openModalById('p1')">Detail</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products" class="section products-section">
+    <div class="container section-head">
+      <h2>Produk Unggulan</h2>
+      <div class="controls">
+        <select id="filterRegion">
+          <option value="all">Semua Region</option>
+          <option value="Nusantara">Nusantara</option>
+          <option value="International">Internasional</option>
+        </select>
+        <select id="filterRoast">
+          <option value="all">Semua Roast</option>
+          <option value="light">Light</option>
+          <option value="medium">Medium</option>
+          <option value="dark">Dark</option>
+        </select>
+        <select id="sortBy">
+          <option value="featured">Direkomendasikan</option>
+          <option value="price-asc">Harga: Rendah → Tinggi</option>
+          <option value="price-desc">Harga: Tinggi → Rendah</option>
+          <option value="rating">Rating</option>
+        </select>
+        <div class="view-toggle">
+          <button id="gridBtn" class="icon active" title="Grid">▦</button>
+          <button id="listBtn" class="icon" title="List">☰</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container product-grid" id="productGrid" aria-live="polite"></div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery" class="section alt gallery-section">
+    <div class="container">
+      <h2>Galeri — Proses Pembuatan Kopi</h2>
+      <div class="gallery-grid">
+        <img src="foto panen biji kopi.jpeg" alt="Ladang Kopi">
+        <img src="foto proses sangrai kopi.jpeg" alt="Proses Sangrai">
+        <img src="foto psoses giling.jpeg" alt="Cupping Session">
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&q=70&auto=format&fit=crop" alt="Packaging Premium">
+      </div>
+    </div>
+  </section>
+
+  <!-- EVENTS -->
+  <section id="events" class="section events">
+    <div class="container">
+      <h2>Event & Cupping Mendatang</h2>
+      <div class="event-list">
+        <article class="event-card">
+          <img src="event cuping.jxl" alt="Cupping Event">
+          <div>
+            <h3>Cupping: Specialty Nusantara</h3>
+            <p class="muted">Sabtu, 8 Nov 2025 • Jakarta</p>
+            <p>Pelajari perfil rasa dan teknik cupping bersama roaster kami.</p>
+            <div class="event-ctas">
+              <button class="btn primary">Daftar</button>
+              <button class="btn ghost">Detail</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="event-card">
+          <img src="latte art.webp" alt="Latte Art Workshop">
+          <div>
+            <h3>Workshop Latte Art</h3>
+            <p class="muted">Minggu, 16 Nov 2025 • Bandung</p>
+            <p>Praktik langsung bersama barista profesional.</p>
+            <div class="event-ctas">
+              <button class="btn primary">Daftar</button>
+              <button class="btn ghost">Detail</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTICLES -->
+  <section id="articles" class="section alt articles">
+    <div class="container">
+      <h2>Artikel & Panduan</h2>
+      <div class="article-grid" id="articleGrid"></div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team" class="section team-section">
+    <div class="container">
+      <h2>Tim Kami</h2>
+      <div class="team-grid">
+        <div class="team-card">
+          <img src="er.JPG" alt="Founder">
+          <h4>Rizky ramadhan supilih</h4>
+          <p class="muted">Founder & Head Roaster</p>
+        </div>
+        <div class="team-card">
+          <img src="el.webp" alt="Quality">
+          <h4>Joaquin loera guzman</h4>
+          <p class="muted">Head of Quality</p>
+        </div>
+        <div class="team-card">
+          <img src="dam.avif" alt="Operations">
+          <h4>Damaso jimenez galves</h4>
+          <p class="muted">Operations</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section id="stats" class="section stats-section">
+    <div class="container stats-grid">
+      <div class="stat-card">
+        <h3>Penjualan Tahunan</h3>
+        <canvas id="salesChart" width="400" height="220"></canvas>
+      </div>
+      <div class="stat-card small">
+        <h3>Ringkasan</h3>
+        <ul class="stat-list">
+          <li><strong>Produk</strong><span>8 Varian</span></li>
+          <li><strong>Rating</strong><span>4.7 / 5</span></li>
+          <li><strong>Mitra</strong><span>25 Petani</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="section faq-section">
+    <div class="container">
+      <h2>FAQ</h2>
+      <div class="faq-grid">
+        <details><summary>Apakah pesanan dikirim ke seluruh Indonesia?</summary><p>Kami melayani pengiriman nasional. Biaya dan estimasi sesuai kurir.</p></details>
+        <details><summary>Apa beda roast light & dark?</summary><p>Light roast mempertahankan aroma original varietas; dark roast memberi rasa lebih pekat dan body tebal.</p></details>
+        <details><summary>Apakah Kopi Luwak tersedia?</summary><p>Kami hanya menawarkan produk bersumber etis; cek halaman produk untuk ketersediaan.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section contact-section">
+    <div class="container contact-grid">
+      <div>
+        <h2>Kontak & Newsletter</h2>
+        <p class="muted">Daftar newsletter untuk promo & artikel mingguan.</p>
+        <form id="newsletterForm">
+          <input id="newsletterEmail" type="email" placeholder="Email kamu" required>
+          <button class="btn primary" type="submit">Daftar</button>
+        </form>
+
+        <div class="contact-info">
+          <p>📍 Jl. Jagakarsa Raya No.7, Jakarta</p>
+          <p>📞 +62 812-3456-7890</p>
+          <p>✉️ riskcompany@gmail.com</p>
+        </div>
+      </div>
+
+      <div>
+        <h3>Form Kontak</h3>
+        <form id="contactForm">
+          <input type="text" id="contactName" placeholder="Nama" required>
+          <input type="email" id="contactEmail" placeholder="Email" required>
+          <textarea id="contactMessage" placeholder="Pesan..." rows="5" required></textarea>
+          <button class="btn" type="submit">Kirim Pesan</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- CART PANEL -->
+  <aside id="cartPanel" class="cart-panel" aria-hidden="true">
+    <header><h4>Keranjang</h4><button id="closeCart" class="icon">×</button></header>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="cart-footer">
+      <div>Subtotal: <strong id="cartSubtotal">Rp0</strong></div>
+      <div class="cart-actions">
+        <button id="checkoutBtn" class="btn primary">Checkout (Simulasi)</button>
+        <button id="clearCart" class="btn ghost">Kosongkan</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- AUTH MODAL (LOGIN / REGISTER) -->
+  <div id="authModal" class="modal" aria-hidden="true">
+    <div class="modal-card auth-card">
+      <button id="authClose" class="modal-close" aria-label="Tutup">×</button>
+      <div class="auth-tabs">
+        <button id="showLogin" class="tab active">Login</button>
+        <button id="showRegister" class="tab">Register</button>
+      </div>
+      <div class="auth-body">
+        <form id="loginForm" class="auth-form">
+          <input id="loginEmail" type="email" placeholder="Email" required>
+          <input id="loginPass" type="password" placeholder="Password" required>
+          <button class="btn primary" type="submit">Login (Simulasi)</button>
+        </form>
+
+        <form id="registerForm" class="auth-form hidden">
+          <input id="regName" type="text" placeholder="Nama Lengkap" required>
+          <input id="regEmail" type="email" placeholder="Email" required>
+          <input id="regPass" type="password" placeholder="Password" required>
+          <button class="btn primary" type="submit">Register</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT MODAL -->
+  <div id="productModal" class="modal" aria-hidden="true">
+    <div class="modal-card">
+      <button id="modalClose" class="modal-close" aria-label="Tutup">×</button>
+      <div class="modal-body">
+        <img id="modalImage" src="" alt="">
+        <div class="modal-meta">
+          <h3 id="modalTitle"></h3>
+          <div id="modalOrigin" class="muted"></div>
+          <div id="modalRating"></div>
+          <p id="modalDesc"></p>
+          <div class="price-row">
+            <div class="price" id="modalPrice"></div>
+            <label>Qty <input id="modalQty" type="number" min="1" value="1"></label>
+          </div>
+          <div class="modal-actions">
+            <button id="modalAdd" class="btn primary">Tambah ke Keranjang</button>
+            <button id="modalFav" class="btn">♡ Favorit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast" aria-hidden="true"></div>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>©️ <span id="year"></span> Kopi Nusantara Risk Company — Demo & Portfolio</div>
+      <div class="muted">Follow: Instagram • Facebook • TikTok</div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
